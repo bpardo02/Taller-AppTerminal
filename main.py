@@ -98,6 +98,7 @@ while True:
             print('Opciones: ')
             print('1: Modulo Huesped: ')
             print('2: Agregar CSV de habitaciones')
+            print('3: Generar Registro')
             opcionEnc = input('Seleccionar Modulo: ')
             if opcionEnc =='1':
                 print('Opciones: ')
@@ -137,10 +138,12 @@ while True:
                 except Exception as e:
                     print("Ocurrio un error ", str(e))
                     return tareasEncargado()
+            
+            if opcionEnc =="3":
+                pass
 
+                return tareasEncargado()
                 
-                
-                        
         #FUNCION AUTORIZAR ENCARGADO
         def authEncargado():
                 encargadodao = EncargadoDAO()
