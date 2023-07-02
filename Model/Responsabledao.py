@@ -13,7 +13,7 @@ class ResponsableDAO():
 
     def asignResponsable(self, responsable):
         query = "INSERT INTO log_huesped (id_asignacion, rut_huesped) VALUES (%s,%s)"
-        valores = (responsable.id_asignacion, responsable.rut_asignacion)
+        valores = (responsable.id_asignacion, responsable.rut_huesped)
         self.cursor.execute(query,valores)
         self.connection.commit()
         print("Responsable agregado...")

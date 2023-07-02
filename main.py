@@ -177,6 +177,14 @@ while True:
 
             if opcionEnc =="4":
                 ide_responsable = input('Asignar ID de asignacion previa: ')
+
+                huespeddao = HuespedDAO()
+                huespedes = huespeddao.listHuesped()
+                for huesped in huespedes:
+                    print(f'RUT: {huesped.rut}')
+                    print(f'Nombre: {huesped.nombre}')
+                    print(f'Responsabilidad (S/N): {huesped.responsabilidad}')
+
                 rutresponsable = input('Indique Rut de la lista de huespedes: ')
 
                 responsable = Responsable(ide_responsable, rutresponsable)
@@ -188,8 +196,9 @@ while True:
             if opcionEnc =="5":
                 id_boleta = input('Ingrese el id de la boleta: ')
                 id_asignacion = input('Ingrese el id de la asignacion: ')
-                cantidad = input('Indique cantidad total de clientes: ')
-                valor = 20000 * cantidad
+                cantidad = int(input('Indique cantidad total de clientes: '))
+                valor = (20000*cantidad)
+                print(valor)
                 medio = input('Ingrese medio de pago: ')
                 actual_fecha = datetime.datetime.now()
                 fecha = actual_fecha.date()

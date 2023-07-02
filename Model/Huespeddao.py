@@ -26,3 +26,15 @@ class HuespedDAO():
         self.cursor.execute(query,valores)
         self.connection.commit()
         print('Huesped eliminado...')
+
+    def listHuesped(self):
+        query = "SELECT * FROM huesped"
+        self.cursor.execute(query)
+        results = self.cursor.fetchall()
+        huespedes = []
+        
+        for result in results:
+            huesped = Huesped(result[0], result[1], result[2])
+            huespedes.append(huesped)
+        return huespedes
+
