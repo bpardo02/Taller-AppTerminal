@@ -32,6 +32,19 @@ class HabitacionDAO():
         self.cursor.execute(query,valores)
         self.connection.commit()
 
+    def listHabitacion(self):
+        query = "SELECT * FROM habitacion"
+        self.cursor.execute(query)
+        results = self.cursor.fetchall()
+        habitaciones = []
+
+        for result in results:
+            habitacion = Habitacion(result[0], result[1], result[2], result[3])
+            habitaciones.append(habitacion)
+        return habitaciones
+
+
+
         
 
 

@@ -2,12 +2,20 @@ from Model.Admindao import AdminDAO
 from Model.Encargadodao import EncargadoDAO
 from Model.Huespeddao import HuespedDAO
 from Model.Habitaciondao import HabitacionDAO
+from Model.Boletadao import BoletaDAO
+from Model.Responsabledao import ResponsableDAO
+from Model.Asignaciondao import AsignacionDAO
+
+from Class.responsable import Responsable
 from Class.admin import Admin
 from Class.encargado import Encargado
 from Class.huesped import Huesped
 from Class.habitacion import Habitacion
+from Class.boleta import Boleta
+from Class.asignacion import Asignacion
 
 import os
+import datetime
 
 
 #BUCLE PARA EVITAR CIERRE
@@ -62,7 +70,7 @@ while True:
                 print('Lista de Encargados: ')
                 for encargado in encargados:
                     print(f'Username: {encargado.name}')
-                    print(f'Rut: {encargado.id}')
+                    print(f'Rut: {encargado.id} \n ')
                 return accionAdmin()
 
 
@@ -98,7 +106,10 @@ while True:
             print('Opciones: ')
             print('1: Modulo Huesped: ')
             print('2: Agregar CSV de habitaciones')
-            print('3: Generar Registro')
+            print('3: Asignar cliente a habitacion')
+            print('4: Asignar Responsable')
+            print('5: Generar Boleta')
+            print('6: Asignar responsable y registrar')
             opcionEnc = input('Seleccionar Modulo: ')
             if opcionEnc =='1':
                 print('Opciones: ')
@@ -138,9 +149,57 @@ while True:
                 except Exception as e:
                     print("Ocurrio un error ", str(e))
                     return tareasEncargado()
-            
+                
             if opcionEnc =="3":
-                pass
+                idasignacion = input('Asigne su ID: ')
+                
+                listhabitacionDAO = HabitacionDAO()
+                habitaciones = listhabitacionDAO.listHabitacion()
+                for habitacion in habitaciones:
+                    print(f'ID: {habitacion.ide}')
+                    print(f'Numero: {habitacion.numero}')
+                    print(f'Cantidad Maxima: {habitacion.cantidad}')
+                    print(f'Orientacion: {habitacion.orientacion} \n ')
+
+                idroom = input('Seleccione ID de habitacion: ')
+                rutencargado = input('Indique rut de persona que atiende: ')
+                fecha_hoy = datetime.datetime.now()
+                hora_uno = fecha_hoy.time()
+                dia = fecha_hoy.date()
+
+                asignDAO = AsignacionDAO()
+                asignacion = Asignacion(idasignacion, idroom, rutencargado, dia, hora_uno)
+                asignDAO.addAsignacion(asignacion)
+
+
+
+                
+
+            if opcionEnc =="4":
+                ide_responsable = input('Asignar ID de asignacion previa: ')
+                rutresponsable = input('Indique Rut de la lista de huespedes: ')
+
+                responsable = Responsable(ide_responsable, rutresponsable)
+                respdao = ResponsableDAO()
+
+                respdao.asignResponsable(responsable)
+
+            
+            if opcionEnc =="5":
+                id_boleta = input('Ingrese el id de la boleta: ')
+                id_asignacion = input('Ingrese el id de la asignacion: ')
+                cantidad = input('Indique cantidad total de clientes: ')
+                valor = 20000 * cantidad
+                medio = input('Ingrese medio de pago: ')
+                actual_fecha = datetime.datetime.now()
+                fecha = actual_fecha.date()
+                hora = actual_fecha.time()
+
+                newBoleta = Boleta(id_boleta,id_asignacion, valor, medio, fecha, hora)
+                boletadao = BoletaDAO()
+
+                boletadao.addBoleta(newBoleta)
+
 
                 return tareasEncargado()
                 

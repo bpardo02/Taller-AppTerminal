@@ -18,6 +18,8 @@ class HuespedDAO():
         self.connection.commit()
         print('Huesped añadido con exito...')
 
+        
+
     def deleteHuesped(self, rut):
         query = "DELETE FROM huesped WHERE rut_huesped = %s"
         valores = (rut,)
