@@ -6,7 +6,7 @@ class BoletaDAO():
         self.connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="Odrapth1020",
+            password="hotelduermebien",
             database="hoteldb"
         )
         self.cursor = self.connection.cursor()
